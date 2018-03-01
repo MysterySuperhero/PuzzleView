@@ -44,7 +44,8 @@ class PuzzleLayoutParser {
 
         @Override
         public PuzzleLayout copy(float scaleDiff) {
-          return null;
+          // TODO
+          throw new UnsupportedOperationException("Copy operation is not supported for parsed layouts!");
         }
 
       };
@@ -71,7 +72,8 @@ class PuzzleLayoutParser {
 
         @Override
         public PuzzleLayout copy(float scaleDiff) {
-          return null;
+          // TODO
+          throw new UnsupportedOperationException("Copy operation is not supported for parsed layouts!");
         }
 
       };
