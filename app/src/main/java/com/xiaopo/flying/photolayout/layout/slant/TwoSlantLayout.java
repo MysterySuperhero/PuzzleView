@@ -1,6 +1,7 @@
 package com.xiaopo.flying.photolayout.layout.slant;
 
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -24,5 +25,12 @@ public class TwoSlantLayout extends NumberSlantLayout {
         addLine(0, Line.Direction.VERTICAL, 0.56f, 0.44f);
         break;
     }
+  }
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    TwoSlantLayout result = new TwoSlantLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

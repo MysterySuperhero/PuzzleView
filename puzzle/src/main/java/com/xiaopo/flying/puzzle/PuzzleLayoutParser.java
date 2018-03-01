@@ -41,6 +41,12 @@ class PuzzleLayoutParser {
             }
           }
         }
+
+        @Override
+        public PuzzleLayout copy(float scaleDiff) {
+          return null;
+        }
+
       };
     } else {
       layout = new SlantPuzzleLayout() {
@@ -62,6 +68,12 @@ class PuzzleLayoutParser {
             }
           }
         }
+
+        @Override
+        public PuzzleLayout copy(float scaleDiff) {
+          return null;
+        }
+
       };
     }
 

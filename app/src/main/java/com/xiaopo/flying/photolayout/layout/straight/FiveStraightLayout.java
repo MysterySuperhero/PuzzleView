@@ -1,6 +1,9 @@
 package com.xiaopo.flying.photolayout.layout.straight;
 
+import android.graphics.RectF;
+
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -94,5 +97,12 @@ public class FiveStraightLayout extends NumberStraightLayout {
         cutAreaEqualPart(0, 5, Line.Direction.HORIZONTAL);
         break;
     }
+  }
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    FiveStraightLayout result = new FiveStraightLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

@@ -31,4 +31,16 @@ class CrossoverPointF extends PointF {
     }
     SlantUtils.intersectionOfLines(this, horizontal, vertical);
   }
+
+  CrossoverPointF copy(float scaleDiff) {
+    CrossoverPointF resultPoint = new CrossoverPointF();
+
+    resultPoint.x = this.x * scaleDiff;
+    resultPoint.y = this.y * scaleDiff;
+
+    resultPoint.horizontal = this.horizontal.copy(scaleDiff);
+    resultPoint.vertical = this.vertical.copy(scaleDiff);
+
+    return resultPoint;
+  }
 }

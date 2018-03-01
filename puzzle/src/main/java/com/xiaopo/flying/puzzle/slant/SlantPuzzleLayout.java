@@ -329,4 +329,21 @@ public abstract class SlantPuzzleLayout implements PuzzleLayout {
 
     return info;
   }
+
+  protected void init(PuzzleLayout src, float scaleDiff) {
+    RectF srcBounds = ((SlantPuzzleLayout) src).bounds;
+    setOuterBounds(new RectF(
+            srcBounds.left * scaleDiff, srcBounds.top * scaleDiff,
+            srcBounds.right * scaleDiff, srcBounds.bottom * scaleDiff
+    ));
+
+    setPadding(src.getPadding() * scaleDiff);
+    setRadian(src.getRadian() * scaleDiff);
+    setColor(src.getColor());
+
+    areas.clear();
+    for (Area area : ((SlantPuzzleLayout) src).areas) {
+      areas.add((SlantArea) area.copy(scaleDiff));
+    }
+  }
 }

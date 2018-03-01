@@ -1,6 +1,9 @@
 package com.xiaopo.flying.photolayout.layout.slant;
 
+import android.graphics.RectF;
+
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -30,5 +33,12 @@ public class OneSlantLayout extends NumberSlantLayout {
         cutArea(0, 1, 2);
         break;
     }
+  }
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    OneSlantLayout result = new OneSlantLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

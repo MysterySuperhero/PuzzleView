@@ -48,6 +48,11 @@ public interface PuzzleLayout {
 
   void sortAreas();
 
+  /**
+   * Copy instance with particular scale.
+   */
+  PuzzleLayout copy(float scaleDiff);
+
   class Info implements Parcelable{
     public static final int TYPE_STRAIGHT = 0;
     public static final int TYPE_SLANT = 1;

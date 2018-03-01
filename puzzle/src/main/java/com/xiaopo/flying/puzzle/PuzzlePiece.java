@@ -231,6 +231,10 @@ public class PuzzlePiece {
     this.matrix.postScale(scaleX, scaleY, midPoint.x, midPoint.y);
   }
 
+  void postScale(float scaleX, float scaleY) {
+    this.matrix.postScale(scaleX, scaleY);
+  }
+
   void postFlipVertically() {
     this.matrix.postScale(1, -1, area.centerX(), area.centerY());
   }
@@ -441,5 +445,16 @@ public class PuzzlePiece {
 
   public String getPath() {
     return path;
+  }
+
+  public PuzzlePiece copy(Area puzzleArea, float scaleDiff) {
+    Drawable copyDrawable = drawable.getConstantState().newDrawable().mutate();
+
+    Matrix matrixCopy = new Matrix(matrix);
+
+    PuzzlePiece result = new PuzzlePiece(copyDrawable, puzzleArea, matrixCopy);
+    result.postScale(scaleDiff, scaleDiff);
+
+    return result;
   }
 }

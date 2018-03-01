@@ -2,6 +2,7 @@ package com.xiaopo.flying.photolayout.layout.straight;
 
 import android.util.Log;
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -50,5 +51,12 @@ public class TwoStraightLayout extends NumberStraightLayout {
         addLine(0, Line.Direction.HORIZONTAL, mRadio);
         break;
     }
+  }
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    TwoStraightLayout result = new TwoStraightLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

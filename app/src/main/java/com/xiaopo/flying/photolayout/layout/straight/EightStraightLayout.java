@@ -1,6 +1,9 @@
 package com.xiaopo.flying.photolayout.layout.straight;
 
+import android.graphics.RectF;
+
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -83,5 +86,12 @@ public class EightStraightLayout extends NumberStraightLayout {
       default:
         break;
     }
+  }
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    EightStraightLayout result = new EightStraightLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

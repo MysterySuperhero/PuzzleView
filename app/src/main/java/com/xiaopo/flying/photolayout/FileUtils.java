@@ -1,5 +1,6 @@
 package com.xiaopo.flying.photolayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,7 +9,12 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+
 import com.xiaopo.flying.puzzle.PuzzleView;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -75,12 +81,59 @@ public class FileUtils {
     return bitmap;
   }
 
+  /**
+   * @param sourceView - source for the bitmap.
+   * @param targetSize - width and height of the bitmap.
+   *
+   * @return - Bitmap based on @param sourceView with @param targetSize width and height.
+   */
+  @SuppressWarnings("SameParameterValue")
+  @SuppressLint("InflateParams")
+  public static Bitmap createScaledBitmap(PuzzleView sourceView, int targetSize) {
+    Context context = sourceView.getContext();
+
+    View view = LayoutInflater.from(context).inflate(R.layout.target_view, null);
+    PuzzleView targetView = view.findViewById(R.id.puzzle_view);
+
+    int screenWidth = getScreenWidth(context);
+
+    float scaleDiff = (float) targetSize / screenWidth;
+
+    PuzzleView.copyState(sourceView, targetView, scaleDiff);
+
+    int widthSpec = View.MeasureSpec.makeMeasureSpec(targetSize, View.MeasureSpec.EXACTLY);
+    int heightSpec = View.MeasureSpec.makeMeasureSpec(targetSize, View.MeasureSpec.EXACTLY);
+
+    targetView.measure(widthSpec, heightSpec);
+    targetView.layout(0, 0, targetView.getMeasuredWidth(), targetView.getMeasuredHeight());
+
+    Canvas canvas = new Canvas();
+    Bitmap bitmap = Bitmap.createBitmap(
+            targetView.getWidth(), targetView.getHeight(), Bitmap.Config.ARGB_8888
+    );
+    canvas.setBitmap(bitmap);
+    targetView.draw(canvas);
+
+    return bitmap;
+  }
+
+  public static int getScreenWidth(Context context) {
+    DisplayMetrics dm = new DisplayMetrics();
+    WindowManager windowsManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    windowsManager.getDefaultDisplay().getMetrics(dm);
+    return dm.widthPixels;
+  }
+
   public static void savePuzzle(PuzzleView puzzleView, File file, int quality, Callback callback) {
     Bitmap bitmap = null;
     FileOutputStream outputStream = null;
 
     try {
-      bitmap = createBitmap(puzzleView);
+      if (true) {
+        bitmap = createScaledBitmap(puzzleView, 1080);
+      } else {
+        bitmap = createBitmap(puzzleView);
+      }
       outputStream = new FileOutputStream(file);
       bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
 
@@ -102,7 +155,7 @@ public class FileUtils {
       if (callback != null) {
         callback.onSuccess();
       }
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       if (callback != null) {
         callback.onFailed();

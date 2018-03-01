@@ -185,6 +185,16 @@ class StraightArea implements Area {
     this.paddingBottom = paddingBottom;
   }
 
+  @Override
+  public Area copy(float scaleDiff) {
+    getAreaRect();
+    RectF rectF = new RectF(
+            areaRect.left * scaleDiff, areaRect.top * scaleDiff,
+            areaRect.right * scaleDiff, areaRect.bottom * scaleDiff
+    );
+    return new StraightArea(rectF);
+  }
+
   static class AreaComparator implements Comparator<StraightArea> {
     @Override public int compare(StraightArea lhs, StraightArea rhs) {
       if (lhs.top() < rhs.top()) {

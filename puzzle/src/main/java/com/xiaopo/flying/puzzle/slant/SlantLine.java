@@ -147,6 +147,15 @@ class SlantLine implements Line {
     end.offset(x, y);
   }
 
+  public SlantLine copy(float scaleDiff) {
+    SlantLine result = new SlantLine(this.direction);
+
+    result.start = new CrossoverPointF(this.start.x * scaleDiff, this.start.y * scaleDiff);
+    result.end = new CrossoverPointF(this.end.x * scaleDiff, this.end.y * scaleDiff);
+
+    return result;
+  }
+
   @Override public String toString() {
     return "start --> " + start.toString() + ",end --> " + end.toString();
   }

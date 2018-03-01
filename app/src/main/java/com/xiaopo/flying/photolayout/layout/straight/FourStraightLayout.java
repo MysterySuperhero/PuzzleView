@@ -1,6 +1,10 @@
 package com.xiaopo.flying.photolayout.layout.straight;
 
+import android.graphics.RectF;
+
+import com.xiaopo.flying.photolayout.layout.slant.OneSlantLayout;
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -52,5 +56,12 @@ public class FourStraightLayout extends NumberStraightLayout {
         cutAreaEqualPart(0, 4, Line.Direction.HORIZONTAL);
         break;
     }
+  }
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    FourStraightLayout result = new FourStraightLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

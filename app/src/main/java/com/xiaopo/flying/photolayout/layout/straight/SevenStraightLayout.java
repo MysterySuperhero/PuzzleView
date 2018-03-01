@@ -1,6 +1,9 @@
 package com.xiaopo.flying.photolayout.layout.straight;
 
+import android.graphics.RectF;
+
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -71,5 +74,12 @@ public class SevenStraightLayout extends NumberStraightLayout {
       default:
         break;
     }
+  }
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    SevenStraightLayout result = new SevenStraightLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

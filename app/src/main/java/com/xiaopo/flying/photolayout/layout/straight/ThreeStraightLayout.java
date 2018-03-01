@@ -1,6 +1,9 @@
 package com.xiaopo.flying.photolayout.layout.straight;
 
+import android.graphics.RectF;
+
 import com.xiaopo.flying.puzzle.Line;
+import com.xiaopo.flying.puzzle.PuzzleLayout;
 
 /**
  * @author wupanjie
@@ -43,5 +46,13 @@ public class ThreeStraightLayout extends NumberStraightLayout {
         cutAreaEqualPart(0, 3, Line.Direction.HORIZONTAL);
         break;
     }
+  }
+
+
+  @Override
+  public PuzzleLayout copy(float scaleDiff) {
+    ThreeStraightLayout result = new ThreeStraightLayout(getTheme());
+    result.init(this, scaleDiff);
+    return result;
   }
 }

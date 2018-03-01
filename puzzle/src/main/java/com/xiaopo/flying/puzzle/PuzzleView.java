@@ -728,6 +728,14 @@ public class PuzzleView extends View {
     invalidate();
   }
 
+  public void setPuzzleLayoutForced(PuzzleLayout puzzleLayout) {
+    this.puzzleLayout = puzzleLayout;
+  }
+
+  public void setPuzzlePiecesForced(List<PuzzlePiece> puzzlePieces) {
+    this.puzzlePieces = puzzlePieces;
+  }
+
   public void setSelected(final int position) {
     post(new Runnable() {
       @Override public void run() {
@@ -938,6 +946,32 @@ public class PuzzleView extends View {
 
   public void setOnPieceSelectedListener(OnPieceSelectedListener onPieceSelectedListener) {
     this.onPieceSelectedListener = onPieceSelectedListener;
+  }
+
+  public static void copyState(PuzzleView source, PuzzleView dest, float scaleDiff) {
+    dest.setPuzzleLayoutForced(source.puzzleLayout.copy(scaleDiff));
+    dest.setPuzzlePiecesForced(copyPuzzlePieces(dest.puzzleLayout, source.puzzlePieces, scaleDiff));
+
+    dest.setNeedResetPieceMatrix(false);
+    dest.setNeedDrawLine(source.needDrawLine);
+    dest.setNeedDrawLine(source.needDrawOuterLine);
+    dest.setLineSize(source.lineSize);
+    dest.setLineColor(source.lineColor);
+    dest.setPiecePadding(source.piecePadding * scaleDiff);
+    dest.setPieceRadian(source.pieceRadian * scaleDiff);
+    dest.setSelected(source.isSelected());
+  }
+
+  private static List<PuzzlePiece> copyPuzzlePieces(PuzzleLayout puzzleLayout, List<PuzzlePiece> sourcePieces, float scaleDiff) {
+    List<PuzzlePiece> result = new ArrayList<>();
+
+    for (int i = 0; i < sourcePieces.size(); ++i) {
+      PuzzlePiece piece = sourcePieces.get(i);
+      Area puzzleArea = puzzleLayout.getArea(i);
+      result.add(piece.copy(puzzleArea, scaleDiff));
+    }
+
+    return  result;
   }
 
   public interface OnPieceSelectedListener {
