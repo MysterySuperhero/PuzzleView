@@ -99,13 +99,13 @@ public class FileUtils {
 
     float scaleDiff = (float) targetSize / screenWidth;
 
-    PuzzleView.copyState(sourceView, targetView, scaleDiff);
-
     int widthSpec = View.MeasureSpec.makeMeasureSpec(targetSize, View.MeasureSpec.EXACTLY);
     int heightSpec = View.MeasureSpec.makeMeasureSpec(targetSize, View.MeasureSpec.EXACTLY);
 
     targetView.measure(widthSpec, heightSpec);
     targetView.layout(0, 0, targetView.getMeasuredWidth(), targetView.getMeasuredHeight());
+
+    PuzzleView.copyState(sourceView, targetView, scaleDiff);
 
     Canvas canvas = new Canvas();
     Bitmap bitmap = Bitmap.createBitmap(

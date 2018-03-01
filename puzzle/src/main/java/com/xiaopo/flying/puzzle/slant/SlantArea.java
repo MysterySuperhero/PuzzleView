@@ -264,48 +264,29 @@ class SlantArea implements Area {
     this.paddingBottom = paddingBottom;
   }
 
-    @Override
-    public Area copy(float scaleDiff) {
-      SlantArea result = new SlantArea();
+  @Override
+  public Area copy(float scaleDiff) {
+    SlantArea result = new SlantArea();
 
-      result.leftTop = this.leftTop.copy(scaleDiff);
-      result.leftBottom = this.leftBottom.copy(scaleDiff);
-      result.rightTop = this.rightTop.copy(scaleDiff);
-      result.rightBottom = this.rightBottom.copy(scaleDiff);
+    result.leftTop = this.leftTop.copy(scaleDiff);
+    result.leftBottom = this.leftBottom.copy(scaleDiff);
+    result.rightTop = this.rightTop.copy(scaleDiff);
+    result.rightBottom = this.rightBottom.copy(scaleDiff);
 
-      result.lineLeft = this.lineLeft.copy(scaleDiff);
-      result.lineTop = this.lineTop.copy(scaleDiff);
-      result.lineRight = this.lineRight.copy(scaleDiff);
-      result.lineBottom = this.lineBottom.copy(scaleDiff);
+    result.lineLeft = this.lineLeft.copy(scaleDiff);
+    result.lineTop = this.lineTop.copy(scaleDiff);
+    result.lineRight = this.lineRight.copy(scaleDiff);
+    result.lineBottom = this.lineBottom.copy(scaleDiff);
 
-//      correctPoint(leftBottom, scaleDiff);
-//      correctPoint(leftTop, scaleDiff);
-//      correctPoint(rightBottom, scaleDiff);
-//      correctPoint(rightTop, scaleDiff);
+    result.setPadding(
+            getPaddingLeft() * scaleDiff, getPaddingTop() * scaleDiff,
+            getPaddingRight() * scaleDiff, getPaddingBottom() * scaleDiff
+    );
 
-      return result;
+    result.setRadian(radian() * scaleDiff);
 
-//      return new SlantArea();
-    }
-
-    private void correctPoint(CrossoverPointF point, float scaleDiff) {
-      point.x = point.x * scaleDiff;
-      point.y = point.y * scaleDiff;
-
-      if (point.horizontal != null) {
-        point.horizontal.start.x = point.horizontal.start.x * scaleDiff;
-        point.horizontal.start.y = point.horizontal.start.y * scaleDiff;
-        point.horizontal.end.x = point.horizontal.end.x * scaleDiff;
-        point.horizontal.end.y = point.horizontal.end.y * scaleDiff;
-      }
-
-      if (point.vertical != null) {
-        point.vertical.start.x = point.vertical.start.x * scaleDiff;
-        point.vertical.start.y = point.vertical.start.y * scaleDiff;
-        point.vertical.end.x = point.vertical.end.x * scaleDiff;
-        point.vertical.end.y = point.vertical.end.y * scaleDiff;
-      }
-    }
+    return result;
+  }
 
   void updateCornerPoints() {
     intersectionOfLines(leftTop, lineLeft, lineTop);

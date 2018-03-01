@@ -192,7 +192,11 @@ class StraightArea implements Area {
             areaRect.left * scaleDiff, areaRect.top * scaleDiff,
             areaRect.right * scaleDiff, areaRect.bottom * scaleDiff
     );
-    return new StraightArea(rectF);
+    StraightArea result = new StraightArea(rectF);
+
+    result.setRadian(radian() * scaleDiff);
+
+    return result;
   }
 
   static class AreaComparator implements Comparator<StraightArea> {

@@ -957,8 +957,6 @@ public class PuzzleView extends View {
     dest.setNeedDrawLine(source.needDrawOuterLine);
     dest.setLineSize(source.lineSize);
     dest.setLineColor(source.lineColor);
-    dest.setPiecePadding(source.piecePadding * scaleDiff);
-    dest.setPieceRadian(source.pieceRadian * scaleDiff);
     dest.setSelected(source.isSelected());
   }
 
