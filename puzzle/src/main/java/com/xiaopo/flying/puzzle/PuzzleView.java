@@ -80,6 +80,8 @@ public class PuzzleView extends View {
 
   private OnPieceSelectedListener onPieceSelectedListener;
 
+  private OnPieceSwappedListener onPieceSwappedListener;
+
   private Runnable switchToSwapAction = new Runnable() {
     @Override public void run() {
       if (!canSwap) return;
@@ -487,6 +489,12 @@ public class PuzzleView extends View {
 
     handlingPiece.fillArea(this, true);
     replacePiece.fillArea(this, true);
+
+    if (onPieceSwappedListener != null) {
+      onPieceSwappedListener.onPieceSwapped(
+              getPiecePosition(handlingPiece), getPiecePosition(replacePiece)
+      );
+    }
   }
 
   private void moveLine(Line line, MotionEvent event) {
@@ -761,6 +769,10 @@ public class PuzzleView extends View {
     return puzzlePieces.indexOf(handlingPiece);
   }
 
+  public int getPiecePosition(PuzzlePiece piece) {
+    return puzzlePieces.indexOf(piece);
+  }
+
   // can be null
   public boolean hasPieceSelected() {
     return handlingPiece != null;
@@ -948,6 +960,10 @@ public class PuzzleView extends View {
     this.onPieceSelectedListener = onPieceSelectedListener;
   }
 
+  public void setOnPieceSwappedListener(OnPieceSwappedListener onPieceSwappedListener) {
+    this.onPieceSwappedListener = onPieceSwappedListener;
+  }
+
   public static void copyState(PuzzleView source, PuzzleView dest, float scaleDiff) {
     dest.setPuzzleLayoutForced(source.puzzleLayout.copy(scaleDiff));
     dest.setPuzzlePiecesForced(copyPuzzlePieces(dest.puzzleLayout, source.puzzlePieces, scaleDiff));
@@ -974,5 +990,9 @@ public class PuzzleView extends View {
 
   public interface OnPieceSelectedListener {
     void onPieceSelected(PuzzlePiece piece, int position);
+  }
+
+  public interface OnPieceSwappedListener {
+    void onPieceSwapped(int handlingPiecePosition, int replaceablePiecePosition);
   }
 }

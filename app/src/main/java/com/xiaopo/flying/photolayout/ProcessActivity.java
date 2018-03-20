@@ -188,6 +188,16 @@ public class ProcessActivity extends AppCompatActivity implements View.OnClickLi
         Snackbar.make(puzzleView, "Piece " + position + " selected", Snackbar.LENGTH_SHORT).show();
       }
     });
+    puzzleView.setOnPieceSwappedListener(new PuzzleView.OnPieceSwappedListener() {
+      @Override
+      public void onPieceSwapped(int handlingPiecePosition, int replaceablePiecePosition) {
+        Snackbar.make(
+                puzzleView,
+                "Piece " + String.valueOf(handlingPiecePosition) + " swapped with "
+                        + String.valueOf(replaceablePiecePosition),
+                Snackbar.LENGTH_SHORT).show();
+      }
+    });
 
     // currently the SlantPuzzleLayout do not support padding
     puzzleView.setPiecePadding(10);
