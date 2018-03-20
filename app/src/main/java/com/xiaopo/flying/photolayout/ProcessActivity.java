@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -198,6 +199,13 @@ public class ProcessActivity extends AppCompatActivity implements View.OnClickLi
                 Snackbar.LENGTH_SHORT).show();
       }
     });
+    puzzleView.setOnMoveLineFinishedListener(new PuzzleView.OnMoveLineFinishedListener() {
+      @Override
+      public void onMoveLineFinished() {
+        Log.v("xxx", "aaa moving line finished");
+      }
+    });
+
 
     // currently the SlantPuzzleLayout do not support padding
     puzzleView.setPiecePadding(10);

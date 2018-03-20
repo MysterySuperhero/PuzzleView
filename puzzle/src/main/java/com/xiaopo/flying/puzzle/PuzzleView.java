@@ -82,6 +82,8 @@ public class PuzzleView extends View {
 
   private OnPieceSwappedListener onPieceSwappedListener;
 
+  private OnMoveLineFinishedListener onMoveLineFinishedListener;
+
   private Runnable switchToSwapAction = new Runnable() {
     @Override public void run() {
       if (!canSwap) return;
@@ -456,6 +458,9 @@ public class PuzzleView extends View {
         previousHandlingPiece = handlingPiece;
         break;
       case MOVE:
+        if (onMoveLineFinishedListener != null) {
+          onMoveLineFinishedListener.onMoveLineFinished();
+        }
         break;
       case SWAP:
         if (handlingPiece != null && replacePiece != null) {
@@ -964,6 +969,10 @@ public class PuzzleView extends View {
     this.onPieceSwappedListener = onPieceSwappedListener;
   }
 
+  public void setOnMoveLineFinishedListener(OnMoveLineFinishedListener onMoveLineFinishedListener) {
+    this.onMoveLineFinishedListener = onMoveLineFinishedListener;
+  }
+
   public static void copyState(PuzzleView source, PuzzleView dest, float scaleDiff) {
     dest.setPuzzleLayoutForced(source.puzzleLayout.copy(scaleDiff));
     dest.setPuzzlePiecesForced(copyPuzzlePieces(dest.puzzleLayout, source.puzzlePieces, scaleDiff));
@@ -994,5 +1003,9 @@ public class PuzzleView extends View {
 
   public interface OnPieceSwappedListener {
     void onPieceSwapped(int handlingPiecePosition, int replaceablePiecePosition);
+  }
+
+  public interface OnMoveLineFinishedListener {
+    void onMoveLineFinished();
   }
 }
